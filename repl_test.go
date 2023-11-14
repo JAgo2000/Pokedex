@@ -4,7 +4,7 @@ import (
 	"testing"
 )
 
-func test_clean_scantext(t *testing.T) {
+func TestCleanScantext(t *testing.T) {
 	cases := []struct {
 		input    string
 		expectet []string
@@ -18,7 +18,7 @@ func test_clean_scantext(t *testing.T) {
 		},
 	}
 	for _, cs := range cases {
-		actual := clean_scantext(cs.input)
+		actual := CleanScantext(cs.input)
 		if len(actual) != len(cs.expectet) {
 			t.Errorf("The lenghts are not equal %v vs %v", len(actual), len(cs.expectet))
 			continue

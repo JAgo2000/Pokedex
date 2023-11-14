@@ -7,14 +7,14 @@ import (
 	"strings"
 )
 
-func pepl_loop() {
+func ReplLoop() {
 	scanner := bufio.NewScanner(os.Stdin)
 	exit := false
 	for {
 		fmt.Print(">")
 		scanner.Scan()
 		text := scanner.Text()
-		text_arr := clean_scantext(text)
+		text_arr := CleanScantext(text)
 		if text_arr != nil {
 			switch text {
 			//case "clear":
@@ -40,7 +40,7 @@ func pepl_loop() {
 	}
 }
 
-func clean_scantext(text string) []string {
+func CleanScantext(text string) []string {
 	if len(text) == 0 {
 		return nil
 	}
