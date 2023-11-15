@@ -2,7 +2,7 @@ package main
 
 import "fmt"
 
-func callbackhelp() error {
+func callbackHelp() error {
 	fmt.Println("*****************")
 	fmt.Println("This is a Repl! ")
 	fmt.Println("Valid Commands: ")

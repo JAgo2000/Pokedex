@@ -5,7 +5,7 @@ import (
 	"os"
 )
 
-func callbackexit() error {
+func callbackExit() error {
 	fmt.Println("Exiting Now")
 	os.Exit(0)
 	return nil
