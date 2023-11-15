@@ -7,36 +7,46 @@ import (
 	"strings"
 )
 
+type cliCommand struct {
+	name        string
+	description string
+	callback    func() error
+}
+
+func getCommands() map[string]cliCommand {
+	return map[string]cliCommand{
+		"help": {
+			name:        "help",
+			description: "prints the possible commands",
+			callback:    callbackhelp,
+		},
+		"exit": {
+			name:        "exit",
+			description: "turns off the pokedex",
+			callback:    callbackexit,
+		},
+	}
+}
+
 func ReplLoop() {
 	scanner := bufio.NewScanner(os.Stdin)
-	exit := false
+	availableCommands := getCommands()
 	for {
 		fmt.Print(">")
 		scanner.Scan()
 		text := scanner.Text()
 		text_arr := CleanScantext(text)
-		if text_arr != nil {
-			switch text {
-			//case "clear":
-			//clear window   fmt.Printf("Echo: %v", text_arr[0])
-			case "help":
-				fmt.Println("*****************")
-				fmt.Println("This is a Repl! ")
-				fmt.Println("Valid Commands: ")
-				fmt.Println("<help> ")
-				fmt.Println("<exit> ")
-				fmt.Println("*****************")
-			case "exit":
-				fmt.Println("exit now")
-				exit = true
-			default:
-				fmt.Printf("<%v> is a unknown comand, type <help> for instructions", text_arr[0])
-				fmt.Println()
-			}
-			if exit {
-				break
-			}
+		if nil == text_arr {
+			continue
 		}
+		commandName := text_arr[0]
+		command, ok := availableCommands[commandName]
+		if !ok {
+			fmt.Println("invalid command")
+			continue
+		}
+		command.callback()
+
 	}
 }
 
