@@ -1,14 +1,12 @@
 package main
 
 import (
+	"errors"
 	"fmt"
-
-	"github.com/JAgo2000/Pokedex/internal/pokeapi"
 )
 
-func callbackMap() error {
-	pokeapiClient := pokeapi.NewClient()
-	resp, err := pokeapiClient.ListLocationAreas()
+func callbackMap(cfg *config) error {
+	resp, err := cfg.pokeapiClient.ListLocationAreas(cfg.nextLocationArea)
 	if err != nil {
 		return err
 	}
@@ -17,5 +15,26 @@ func callbackMap() error {
 		fmt.Printf(" -%v", area.Name)
 		fmt.Println()
 	}
+	cfg.nextLocationArea = resp.Next
+	cfg.previousLocationArea = resp.Previous
+	return nil
+}
+
+func callbackMapb(cfg *config) error {
+	if cfg.previousLocationArea == nil {
+		return errors.New("you in the beginning")
+	}
+
+	resp, err := cfg.pokeapiClient.ListLocationAreas(cfg.previousLocationArea)
+	if err != nil {
+		return err
+	}
+	fmt.Println("Location Areas: ")
+	for _, area := range resp.Results {
+		fmt.Printf(" -%v", area.Name)
+		fmt.Println()
+	}
+	cfg.nextLocationArea = resp.Next
+	cfg.previousLocationArea = resp.Previous
 	return nil
 }
