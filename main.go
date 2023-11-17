@@ -1,6 +1,8 @@
 package main
 
 import (
+	"time"
+
 	"github.com/JAgo2000/Pokedex/internal/pokeapi"
 )
 
@@ -12,7 +14,7 @@ type config struct {
 
 func main() {
 	cfg := config{
-		pokeapiClient: pokeapi.NewClient(),
+		pokeapiClient: pokeapi.NewClient(time.Hour),
 	}
 	ReplLoop(&cfg)
 
