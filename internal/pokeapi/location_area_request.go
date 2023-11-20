@@ -55,3 +55,49 @@ func (c *Client) ListLocationAreas(pageURL *string) (LocationAreasResp, error) {
 	c.cache.Add(fullURL, dat)
 	return locationAreasResp, nil
 }
+
+// ///////////////////////////////////////////////////////////////////////////////////////////
+func (c *Client) GetLocationArea(locationAreaName string) (LocationArea, error) {
+	endpoint := "/location-area/" + locationAreaName
+	fullURL := baseURL + endpoint
+
+	//check the cache
+	dat, ok := c.cache.Get(fullURL)
+	if ok {
+		//cache hit
+		fmt.Println("cache HIT!!")
+		locationArea := LocationArea{}
+		err := json.Unmarshal(dat, &locationArea)
+		if err != nil {
+			return LocationArea{}, err //LocationAreasResp{} gives back a emty LocationAreasResp
+		}
+		return locationArea, nil
+	}
+
+	req, err := http.NewRequest("GET", fullURL, nil) //rep=>repuest
+	if err != nil {
+		return LocationArea{}, err //LocationAreasResp{} gives back a emty LocationAreasResp
+	}
+	resp, err := c.httpClient.Do(req) //resp=>reponse
+	if err != nil {
+		return LocationArea{}, err
+	}
+	defer resp.Body.Close() //closes the respObject when function closes
+
+	if resp.StatusCode > 399 {
+		return LocationArea{}, fmt.Errorf("Bad Statuscode: %v", resp.StatusCode)
+	}
+
+	dat, err = io.ReadAll(resp.Body)
+	if err != nil {
+		return LocationArea{}, err //LocationArea{} gives back a emty LocationArea
+	}
+
+	locationArea := LocationArea{}
+	err = json.Unmarshal(dat, &locationArea)
+	if err != nil {
+		return LocationArea{}, err
+	}
+	c.cache.Add(fullURL, dat)
+	return locationArea, nil
+}

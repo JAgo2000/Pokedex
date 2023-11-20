@@ -10,7 +10,7 @@ import (
 type cliCommand struct {
 	name        string
 	description string
-	callback    func(*config) error
+	callback    func(*config, ...string) error
 }
 
 func getCommands() map[string]cliCommand {
@@ -35,6 +35,11 @@ func getCommands() map[string]cliCommand {
 			description: "list previus locationAreas",
 			callback:    callbackMapb,
 		},
+		"explore": {
+			name:        "explore {location Area}",
+			description: "lists the pokemon in a location area",
+			callback:    callbackExplore,
+		},
 	}
 }
 
@@ -45,9 +50,14 @@ func ReplLoop(cfg *config) {
 		fmt.Print(">")
 		scanner.Scan()
 		text := scanner.Text()
+
 		text_arr := CleanScantext(text)
 		if nil == text_arr {
 			continue
+		}
+		args := []string{}
+		if len(text_arr) > 1 {
+			args = text_arr[1:]
 		}
 		commandName := text_arr[0]
 		command, ok := availableCommands[commandName]
@@ -55,7 +65,7 @@ func ReplLoop(cfg *config) {
 			fmt.Println("invalid command")
 			continue
 		}
-		err := command.callback(cfg)
+		err := command.callback(cfg, args...)
 		if err != nil {
 			fmt.Println(err)
 		}
