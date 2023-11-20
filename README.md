@@ -1,6 +1,6 @@
-##Pokedex:
-###Training with Go:
-###API
-###Caching
-###Repl
+## Pokedex:
+### Training with Go:
+### API
+### Caching
+### Repl
 
