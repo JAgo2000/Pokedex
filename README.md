@@ -1,2 +1,4 @@
-Pokedex:
-Training with Go
+## Pokedex:
+### Training with Go:
+### API, Caching, Repl
+
