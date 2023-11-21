@@ -6,7 +6,7 @@ With program you can explore the PokemonWorld, catch Pokemons and geting informa
 
 ------------------------
 
-### Clone the repo
+### Clone the repo and run it
 
 ```bash
 git clone https://github.com/JAgo2000/Pokedex
