@@ -2,7 +2,7 @@
 ### Training with Go:
 ### API, Caching, Repl, Testing, Mutex
 
-With program you can explore the PokemonWorld, catch Pokemons and geting information about them 
+With this program you can explore the PokemonWorld, catch Pokemons and getting interesting Facts about them 
 
 ------------------------
 
