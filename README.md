@@ -16,17 +16,17 @@ go build && ./Pokedex
 ### Repl Commands
 type "help" for all possible commands
 ### command examples
-map
+"map"
 
-explore {location}
+"explore {location}"
 
-catch {pokemon}
+"catch {pokemon}"
 
-inspect {pokemon}
+"inspect {pokemon}"
 
-pokedex
+"pokedex"
 
-exit
+"exit"
 
 
 
