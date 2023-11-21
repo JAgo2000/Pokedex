@@ -3,7 +3,6 @@
 ### API, Caching, Repl
 
 ------------------------
-## Contributing
 
 ### Clone the repo
 
