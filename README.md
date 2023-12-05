@@ -14,7 +14,7 @@ cd Pokedex
 go build && ./Pokedex
 ```
 ### Repl Commands
-type "help" for all possible commands
+type "help" for all possible commands.
 ### command examples
 "map"
 
